@@ -21,3 +21,14 @@ jobs:
         username: aliciadias
         # Password or personal access token used to log against the Docker registry
         password: ${{ secrets.PASSWORD_DOCKER_HUB }}
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v4.0.0
+      with:
+        # Optional parent cgroup for the container used in the build
+        context: .
+        # Path to the Dockerfile
+        file: ./Dockerfile  
+        # Push is a shorthand for --output=type=registry
+        push: true
+        # List of tags
+        tags: aliciadias/go_ci:${{github.ref_name}}
